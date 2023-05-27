@@ -1,0 +1,28 @@
+.addBewChatForm {
+  margin: auto;
+  width: fit-content;
+
+  &__title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &__input {
+    margin: 5px auto 0;
+
+    min-width: 240px;
+  }
+
+  &__errorMsg {
+    max-width: 280px;
+
+    color: red;
+    text-align: center;
+  }
+
+  &__submitBtn {
+    display: block;
+    margin: 10px auto;
+  }
+}
