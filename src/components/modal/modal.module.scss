@@ -1,0 +1,37 @@
+.modalContainer {
+  z-index: 5;
+  position: fixed;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s all;
+
+  &_status_active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+
+  &__modal {
+    z-index: 1;
+    padding: 15px 35px;
+    border-radius: 5px;
+
+    background: white;
+  }
+}
