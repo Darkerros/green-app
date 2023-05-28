@@ -1,0 +1,25 @@
+.chatsPageChat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 100%;
+
+  &__messageSendForm {
+    display: flex;
+    gap: 15px;
+
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+
+    background: white;
+  }
+
+  &__messageInput {
+    box-sizing: border-box;
+    width: 100%;
+
+    border-radius: 5px;
+  }
+}
