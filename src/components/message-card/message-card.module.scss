@@ -1,0 +1,28 @@
+.messageCard {
+  padding: 10px 25px 10px 10px;
+  align-self: flex-end;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-width: 50%;
+
+  background: #00a884;
+  border-radius: 5px;
+
+  &__sender {
+    margin: 0;
+    color: #00a884;
+  }
+
+  &__text {
+    margin: 0 0 0 15px;
+    word-wrap: break-word;
+  }
+
+  &_type_incoming {
+    background: white;
+    align-self: flex-start;
+  }
+}
