@@ -4,6 +4,7 @@ import {CheckPhoneWhatsapPhoneReg} from "./types/check-phone-whatsap-phone-reg";
 import {SendMessageResponse} from "./types/send-message-response";
 import {GetChatMessagesResponse} from "./types/get-chat-messages-response";
 import {CheckApiInstanceResponse} from "./types/check-api-instance-response";
+import {GetNotificationResponse} from "./types/get-notification-response";
 
 
 enum ApiAction {
@@ -12,11 +13,14 @@ enum ApiAction {
     getChatMessages = 'getChatHistory',
     checkPhoneReg = 'checkWhatsapp',
     getSettings = 'getSettings',
+    receiveNotification = 'receiveNotification',
+    deleteNotification = 'deleteNotification',
 }
 
 enum Methods {
     GET = "GET",
     POST = "POST",
+    DELETE = 'DELETE'
 }
 
 export class GreenApi {
@@ -39,16 +43,19 @@ export class GreenApi {
         return axios.get(`https://api.green-api.com/waInstance${idInstance}/${ApiAction.checkApiInstance}/${apiTokenInstance}`).then(data => data.data)
     }
 
-    createReguest = (apiAction: ApiAction, method: Methods, data?: any) => {
+    createReguest = (apiAction: ApiAction, method: Methods, data?: any, endpoindAdditional: string = '') => {
         switch (method) {
             case Methods.GET:
-                return this.apiInstance.get(`/waInstance${this.idInstance}/${apiAction}/${this.apiTokenInstance}`).then(data => data.data)
+                return this.apiInstance.get(`/waInstance${this.idInstance}/${apiAction}/${this.apiTokenInstance}`+endpoindAdditional).then(data => data.data)
+
+            case Methods.DELETE:
+                return this.apiInstance.delete(`/waInstance${this.idInstance}/${apiAction}/${this.apiTokenInstance}`+endpoindAdditional).then(data => data.data)
 
             case Methods.POST:
-                return this.apiInstance.post(`/waInstance${this.idInstance}/${apiAction}/${this.apiTokenInstance}`,data).then(data => data.data)
+                return this.apiInstance.post(`/waInstance${this.idInstance}/${apiAction}/${this.apiTokenInstance}`+endpoindAdditional,data).then(data => data.data)
 
             default:
-                return this.apiInstance.get(`/waInstance${this.idInstance}/${apiAction}/${this.apiTokenInstance}`).then(data => data.data)
+                return this.apiInstance.get(`/waInstance${this.idInstance}/${apiAction}/${this.apiTokenInstance}`+endpoindAdditional).then(data => data.data)
         }
     }
 
@@ -74,5 +81,13 @@ export class GreenApi {
 
     getAccountSettings = ():Promise<GetAccountSettings> => {
         return this.createReguest(ApiAction.getSettings, Methods.GET)
+    }
+
+    getNotification = ():Promise<GetNotificationResponse | null> => {
+        return this.createReguest(ApiAction.receiveNotification, Methods.GET)
+    }
+
+    removeNotification = (notificationId: number) => {
+        return this.createReguest(ApiAction.deleteNotification, Methods.DELETE,null,`/${notificationId}`)
     }
 }
